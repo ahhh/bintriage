@@ -1,5 +1,5 @@
 # bintriage
-Additional information on various binary formats (PE, ELF, MACHO).
+Additional information on various binary formats (PE, ELF, MACHO)
 
 ## Example Help
 ```
