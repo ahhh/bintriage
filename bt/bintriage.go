@@ -10,6 +10,8 @@ func BinTriage(sourceFile string) error {
 		bintriage = ElfBinTriage
 	case MACHO:
 		bintriage = MachoBinTriage
+	case FAT:
+		bintriage = FatBinTriage
 	case PE:
 		bintriage = PeBinTriage
 	case ERROR:

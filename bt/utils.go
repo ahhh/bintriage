@@ -14,6 +14,8 @@ const (
 	ELF = iota
 	// MACHO - constant for Mach-O binary format
 	MACHO = iota
+	// FAT - constant for FAT/Mach-O binary format
+	FAT = iota
 	// PE - constant for PE binary format
 	PE = iota
 	// MIN_CAVE_SIZE - the smallest a code cave can be
@@ -50,6 +52,20 @@ func BinaryMagic(filename string) (int, error) {
 			// CF FA ED FE - Mach-O binary (reverse byte ordering scheme, 64-bit)
 			log.Printf("MACHO\n")
 			return MACHO, nil
+		}
+	}
+
+	if bytes.Equal(buf[:3], []byte{0xca, 0xfe, 0xba}) {
+		if buf[3] == 0xbe || buf[3] == 0xbf {
+			log.Printf("FAT\n")
+			return FAT, nil
+		}
+	}
+
+	if bytes.Equal(buf[1:4], []byte{0xba, 0xfe, 0xca}) {
+		if buf[0] == 0xbe || buf[0] == 0xbf {
+			log.Printf("FAT\n")
+			return FAT, nil
 		}
 	}
 
