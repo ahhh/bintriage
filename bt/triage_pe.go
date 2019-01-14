@@ -12,11 +12,11 @@ func PeBinTriage(sourceFile string) error {
 		return err
 	}
 	for _, section := range peFile.Sections {
-		log.Printf("Section details: %+v", section)
+		log.Println(cyan.Sprintf("Section details: %+v", section))
 	}
 
 	for _, symbol := range peFile.Symbols {
-		log.Printf("Symbol details: %+v", symbol)
+		log.Println(blue.Sprintf("Symbol details: %+v", symbol))
 	}
 
 	libraries, err := peFile.ImportedLibraries()
@@ -24,7 +24,7 @@ func PeBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, ilib := range libraries {
-		log.Printf("Imported lib details: %+v", ilib)
+		log.Println(cyan.Sprintf("Imported lib details: %+v", ilib))
 	}
 
 	impSymbs, err := peFile.ImportedSymbols()
@@ -32,7 +32,7 @@ func PeBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, isymb := range impSymbs {
-		log.Printf("Imported symbol details: %+v", isymb)
+		log.Println(blue.Sprintf("Imported symbol details: %+v", isymb))
 	}
 
 	return nil

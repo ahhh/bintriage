@@ -12,7 +12,7 @@ func ElfBinTriage(sourceFile string) error {
 		return err
 	}
 	for _, section := range elfFile.Sections {
-		log.Printf("Section details: %+v", section)
+		log.Println(cyan.Sprintf("Section details: %+v", section))
 	}
 
 	symbols, err := elfFile.Symbols()
@@ -20,7 +20,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, symbol := range symbols {
-		log.Printf("Symbol details: %+v", symbol)
+		log.Println(blue.Sprintf("Symbol details: %+v", symbol))
 	}
 
 	dynsymbols, err := elfFile.DynamicSymbols()
@@ -28,7 +28,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, dynsymbol := range dynsymbols {
-		log.Printf("Dynamic symbol details: %+v", dynsymbol)
+		log.Println(cyan.Sprintf("Dynamic symbol details: %+v", dynsymbol))
 	}
 
 	libraries, err := elfFile.ImportedLibraries()
@@ -36,7 +36,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, ilib := range libraries {
-		log.Printf("Imported lib details: %+v", ilib)
+		log.Println(blue.Sprintf("Imported lib details: %+v", ilib))
 	}
 
 	impSymbs, err := elfFile.ImportedSymbols()
@@ -44,7 +44,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, isymb := range impSymbs {
-		log.Printf("Imported symbol details: %+v", isymb)
+		log.Println(cyan.Sprintf("Imported symbol details: %+v", isymb))
 	}
 
 	return nil

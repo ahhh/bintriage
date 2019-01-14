@@ -5,6 +5,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"log"
+
+	"github.com/fatih/color"
 )
 
 const (
@@ -22,6 +24,13 @@ const (
 	MIN_CAVE_SIZE = 94
 )
 
+var (
+	// Set up colors
+	cyan = color.New(color.FgCyan)
+	blue = color.New(color.FgBlue)
+	red  = color.New(color.FgRed)
+)
+
 // BinaryMagic - Identifies the Binary Format of a file by looking at its magic number
 func BinaryMagic(filename string) (int, error) {
 
@@ -30,10 +39,10 @@ func BinaryMagic(filename string) (int, error) {
 		return ERROR, err
 	}
 
-	log.Printf("%x\n", buf[:4])
+	log.Println(red.Sprintf("%x\n", buf[:4]))
 
 	if bytes.Equal(buf[:4], []byte{0x7F, 'E', 'L', 'F'}) {
-		log.Printf("ELF\n")
+		log.Println(red.Sprintf("ELF\n"))
 		return ELF, nil
 	}
 
@@ -41,7 +50,7 @@ func BinaryMagic(filename string) (int, error) {
 		if buf[3] == 0xce || buf[3] == 0xcf {
 			// FE ED FA CE - Mach-O binary (32-bit)
 			// FE ED FA CF - Mach-O binary (64-bit)
-			log.Printf("MACHO\n")
+			log.Println(red.Sprintf("MACHO\n"))
 			return MACHO, nil
 		}
 	}
@@ -50,27 +59,27 @@ func BinaryMagic(filename string) (int, error) {
 		if buf[0] == 0xce || buf[0] == 0xcf {
 			// CE FA ED FE - Mach-O binary (reverse byte ordering scheme, 32-bit)
 			// CF FA ED FE - Mach-O binary (reverse byte ordering scheme, 64-bit)
-			log.Printf("MACHO\n")
+			log.Println(red.Sprintf("MACHO\n"))
 			return MACHO, nil
 		}
 	}
 
 	if bytes.Equal(buf[:3], []byte{0xca, 0xfe, 0xba}) {
 		if buf[3] == 0xbe || buf[3] == 0xbf {
-			log.Printf("FAT\n")
+			log.Println(red.Sprintf("FAT\n"))
 			return FAT, nil
 		}
 	}
 
 	if bytes.Equal(buf[1:4], []byte{0xba, 0xfe, 0xca}) {
 		if buf[0] == 0xbe || buf[0] == 0xbf {
-			log.Printf("FAT\n")
+			log.Println(red.Sprintf("FAT\n"))
 			return FAT, nil
 		}
 	}
 
 	if bytes.Equal(buf[:2], []byte{0x4d, 0x5a}) {
-		log.Printf("PE\n")
+		log.Println(red.Sprintf("PE\n"))
 		return PE, nil
 	}
 
