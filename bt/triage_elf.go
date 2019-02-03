@@ -1,8 +1,9 @@
 package bt
 
 import (
-	"debug/elf"
 	"log"
+
+	"github.com/Binject/debug/elf"
 )
 
 // ElfBinTriage - Inject shellcode into an ELF binary

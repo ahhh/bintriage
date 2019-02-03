@@ -1,8 +1,9 @@
 package bt
 
 import (
-	"debug/macho"
 	"log"
+
+	"github.com/Binject/debug/macho"
 )
 
 // FatBinTriage - Get more info on a Mach-O binary
