@@ -49,6 +49,11 @@ func MachoBinTriage(sourceFile string) error {
 		log.Println(cyan.Sprintf("Func Starts Infos: %+v", machoFile.FuncStarts))
 	}
 
+	// DataInCode
+	if machoFile.DataInCode != nil {
+		log.Println(blue.Printf("DataInCode deets: %+v", machoFile.DataInCode))
+	}
+
 	// StringTab
 	if machoFile.Symtab.RawStringtab != nil {
 		log.Println(blue.Sprintf("StringTab deets: %+v", machoFile.Symtab.RawStringtab))

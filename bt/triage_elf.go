@@ -11,7 +11,20 @@ func ElfBinTriage(sourceFile string) error {
 	elfFile, err := elf.Open(sourceFile)
 	if err != nil {
 		return err
+
 	}
+
+	// Class
+	log.Println(blue.Printf("Elf Class: %+v", elfFile.Class))
+	// Data
+	log.Println(cyan.Printf("Data: %+v", elfFile.Data))
+	// Version
+	log.Println(blue.Printf("Elf Version: %+v", elfFile.Version))
+	//OSABI
+	log.Println(cyan.Printf("OSABI: %+v", elfFile.OSABI))
+	//ABIVersion
+	log.Println(blue.Printf("Elf ABIVersion: %+v", elfFile.ABIVersion))
+
 	for _, section := range elfFile.Sections {
 		log.Println(cyan.Sprintf("Section details: %+v", section))
 	}
