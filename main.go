@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ahhh/bintriage/bt"
+	"github.com/Binject/bintriage/bt"
 )
 
 func main() {

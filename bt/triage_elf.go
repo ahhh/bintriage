@@ -1,8 +1,9 @@
 package bt
 
 import (
-	"debug/elf"
 	"log"
+
+	"github.com/Binject/debug/elf"
 )
 
 // ElfBinTriage - Inject shellcode into an ELF binary
@@ -10,9 +11,22 @@ func ElfBinTriage(sourceFile string) error {
 	elfFile, err := elf.Open(sourceFile)
 	if err != nil {
 		return err
+
 	}
+
+	// Class
+	log.Println(blue.Printf("Elf Class: %+v", elfFile.Class))
+	// Data
+	log.Println(cyan.Printf("Data: %+v", elfFile.Data))
+	// Version
+	log.Println(blue.Printf("Elf Version: %+v", elfFile.Version))
+	//OSABI
+	log.Println(cyan.Printf("OSABI: %+v", elfFile.OSABI))
+	//ABIVersion
+	log.Println(blue.Printf("Elf ABIVersion: %+v", elfFile.ABIVersion))
+
 	for _, section := range elfFile.Sections {
-		log.Printf("Section details: %+v", section)
+		log.Println(cyan.Sprintf("Section details: %+v", section))
 	}
 
 	symbols, err := elfFile.Symbols()
@@ -20,7 +34,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, symbol := range symbols {
-		log.Printf("Symbol details: %+v", symbol)
+		log.Println(blue.Sprintf("Symbol details: %+v", symbol))
 	}
 
 	dynsymbols, err := elfFile.DynamicSymbols()
@@ -28,7 +42,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, dynsymbol := range dynsymbols {
-		log.Printf("Dynamic symbol details: %+v", dynsymbol)
+		log.Println(cyan.Sprintf("Dynamic symbol details: %+v", dynsymbol))
 	}
 
 	libraries, err := elfFile.ImportedLibraries()
@@ -36,7 +50,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, ilib := range libraries {
-		log.Printf("Imported lib details: %+v", ilib)
+		log.Println(blue.Sprintf("Imported lib details: %+v", ilib))
 	}
 
 	impSymbs, err := elfFile.ImportedSymbols()
@@ -44,7 +58,7 @@ func ElfBinTriage(sourceFile string) error {
 		log.Fatal(err)
 	}
 	for _, isymb := range impSymbs {
-		log.Printf("Imported symbol details: %+v", isymb)
+		log.Println(cyan.Sprintf("Imported symbol details: %+v", isymb))
 	}
 
 	return nil
